@@ -6,6 +6,7 @@ require("awful.rules")
 require("beautiful")
 -- Notification library
 require("naughty")
+require("vicious")
 
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
@@ -100,6 +101,13 @@ mytextclock = awful.widget.textclock({ align = "right" })
 -- Create a systray
 mysystray = widget({ type = "systray" })
 
+-- Initialize widget
+cpuwidget = widget({ type = "textbox" })
+
+-- register widget
+
+vicious.register(cpuwidget, vicious.widgets.cpu, " CPU: $1%")
+
 -- Create a wibox for each screen and add it
 mywibox = {}
 mypromptbox = {}
@@ -177,6 +185,7 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         mytextclock,
         s == 1 and mysystray or nil,
+        cpuwidget,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
