@@ -106,6 +106,8 @@ cpuwidget = widget({ type = "textbox" })
 
 orgwidget = widget({ type = "textbox" })
 
+batwidget = widget({ type = "textbox" })
+
 -- register widget
 
 vicious.register(cpuwidget, vicious.widgets.cpu, " CPU: $1%")
@@ -114,6 +116,21 @@ local orgmode = {
   files = { "/home/merlin/org/personal.org","/home/merlin/org/sutel.org", "/home/merlin/org/ipserver.org","/home/merlin/org/enforta.org","/home/merlin/org/weblancer.org", "/home/merlin/org/flk.org","/home/merlin/org/enforta.org","/home/merlin/org/weblancer.org", "/home/merlin/org/flk.org","/home/merlin/org/copy74.org","/home/merlin/org/kipriyanov.org","/home/merlin/org/cvetochka.org","/home/merlin/org/anvik.org"},
 }
 vicious.register(orgwidget, vicious.widgets.org, '<span color="red">Overdue $1</span>.<span color="yellow"> Today $2 </span>. <span color="blue">Next 3  days $3 </span>.<span color="green"> Next week $4 </span> ', 10, orgmode.files)
+
+
+vicious.register(batwidget, vicious.widgets.bat, function(widget,args)
+                                                    if args[1] == '+' then
+                                                       return  ' BAT: <span color="yellow"> ' .. args[2] .. "% " .. "(" .. args[3] .. ")</span>"
+                                                    elseif args[1] == '-' then
+                                                       if args[2] < 20  then
+                                                          naughty.notify({ title = "Battery Warning", text = "Battery low! "..args[2].."% left!\nBetter get some power.", timeout = 10, position = "top_right", fg = beautiful.fg_urgent, bg = beautiful.bg_urgent })
+                                                                         return ' BAT: <span color="red"> ' .. args[2] .. "% " .. "(" .. args[3] .. ")</span>"
+                                                                      else return ' BAT: <span color="red"> ' .. args[2] .. "% " .. "(" .. args[3] .. ")</span>"
+                                                                      end
+                                                                   else
+                                                                      return ' BAT: <span color="green"> charged </span>'
+                                                                   end
+                                                                end, 20, "BAT0")
 
 
 -- Create a wibox for each screen and add it
@@ -194,6 +211,7 @@ for s = 1, screen.count() do
         mytextclock,
         s == 1 and mysystray or nil,
         cpuwidget,
+        batwidget,
         orgwidget,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
