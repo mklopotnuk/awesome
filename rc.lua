@@ -104,9 +104,17 @@ mysystray = widget({ type = "systray" })
 -- Initialize widget
 cpuwidget = widget({ type = "textbox" })
 
+orgwidget = widget({ type = "textbox" })
+
 -- register widget
 
 vicious.register(cpuwidget, vicious.widgets.cpu, " CPU: $1%")
+
+local orgmode = {
+  files = { "/home/merlin/org/personal.org","/home/merlin/org/sutel.org", "/home/merlin/org/ipserver.org","/home/merlin/org/enforta.org","/home/merlin/org/weblancer.org", "/home/merlin/org/flk.org","/home/merlin/org/enforta.org","/home/merlin/org/weblancer.org", "/home/merlin/org/flk.org","/home/merlin/org/copy74.org","/home/merlin/org/kipriyanov.org","/home/merlin/org/cvetochka.org","/home/merlin/org/anvik.org"},
+}
+vicious.register(orgwidget, vicious.widgets.org, '<span color="red">Overdue $1</span>.<span color="yellow"> Today $2 </span>. <span color="blue">Next 3  days $3 </span>.<span color="green"> Next week $4 </span> ', 10, orgmode.files)
+
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -186,6 +194,7 @@ for s = 1, screen.count() do
         mytextclock,
         s == 1 and mysystray or nil,
         cpuwidget,
+        orgwidget,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
