@@ -113,6 +113,8 @@ mboxcwidget1 = widget({ type = "textbox" })
 
 gmailwidget = widget({ type = "textbox" })
 
+wifiwidget = widget({ type = "textbox" })
+
 -- register widget
 
 vicious.register(cpuwidget, vicious.widgets.cpu, " CPU: $1%")
@@ -147,6 +149,20 @@ vicious.register(mboxcwidget1, vicious.widgets.mboxc, " TT: $3.", 600, mboxc.tt)
 
 
 vicious.register(gmailwidget, vicious.widgets.gmail, " Gmail: ${count} ", 600, 10)
+
+-- WiFi widget
+
+vicious.register(wifiwidget, vicious.widgets.wifi, function(widget,args)
+                              if args["{link}"] >= 75 then      
+                               return '<span color="blue">WiFi: </span>' .. args["{ssid}"] .. ' <span color="blue">' .. args["{link}"] .. '%</span>'
+                                elseif args["{link}"] < 75 and args["{link}"] > 50 then
+                                  return '<span color="blue">WiFi: </span>' .. args["{ssid}"] .. ' <span color="green">' .. args["{link}"] .. '%</span>' 
+                                     elseif args["{link}"] < 50 and args["{link}"] > 20 then    
+                                     return '<span color="blue">WiFi: </span>' .. args["{ssid}"] .. ' <span color="yellow">' .. args["{link}"] .. '%</span>' 
+                                      elseif args["{link}"] < 20 then 
+                                       return '<span color="blue">WiFi: </span>' .. args["{ssid}"] .. ' <span color="red">' .. args["{link}"] .. '%</span>'
+                                       end
+                                        end, 5, "wlan0")
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -230,6 +246,7 @@ for s = 1, screen.count() do
         mboxcwidget1,
         cpuwidget,
         batwidget,
+        wifiwidget,
         orgwidget,
         mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
