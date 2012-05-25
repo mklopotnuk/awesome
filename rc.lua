@@ -48,6 +48,7 @@ beautiful.init("/usr/share/awesome/themes/default/theme.lua")
 terminal = "urxvtc"
 editor = os.getenv("EDITOR") or "emacs"
 editor_cmd = terminal .. " -e " .. editor
+distr = os.getenv("OS")
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
@@ -122,6 +123,8 @@ gmailwidget = widget({ type = "textbox" })
 
 wifiwidget = widget({ type = "textbox" })
 
+pkgwidget = widget({ type = "textbox" })
+
 -- register widget
 
 vicious.register(cpuwidget, vicious.widgets.cpu, " CPU: $1%")
@@ -182,6 +185,8 @@ vicious.register(wifiwidget, vicious.widgets.wifi, function(widget,args)
                                        return '<span color="blue">WiFi: </span>' .. args["{ssid}"] .. ' <span color="red">' .. args["{link}"] .. '%</span>'
                                        end
                                         end, 5, "wlan0")
+
+vicious.register(pkgwidget, vicious.widgets.pkg, '<span color="green"> $1 pkg </span>', 720, distr)
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -266,6 +271,7 @@ for s = 1, screen.count() do
         cpuwidget,
         batwidget,
         wifiwidget,
+        pkgwidget,
         orgwidget,
         layout = awful.widget.layout.horizontal.rightleft
     }
