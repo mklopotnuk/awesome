@@ -111,6 +111,8 @@ batwidget = widget({ type = "textbox" })
 mboxcwidget = widget({ type = "textbox" })
 mboxcwidget1 = widget({ type = "textbox" })
 
+gmailwidget = widget({ type = "textbox" })
+
 -- register widget
 
 vicious.register(cpuwidget, vicious.widgets.cpu, " CPU: $1%")
@@ -143,6 +145,8 @@ local mboxc = {
 vicious.register(mboxcwidget, vicious.widgets.mboxc, " General: $3.", 600, mboxc.mbox)
 vicious.register(mboxcwidget1, vicious.widgets.mboxc, " TT: $3.", 600, mboxc.tt)
 
+
+vicious.register(gmailwidget, vicious.widgets.gmail, " Gmail: ${count} ", 600, 10)
 
 -- Create a wibox for each screen and add it
 mywibox = {}
@@ -221,6 +225,7 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         mytextclock,
         s == 1 and mysystray or nil,
+        gmailwidget,
         mboxwidget,
         mboxwidget1,
         cpuwidget,
