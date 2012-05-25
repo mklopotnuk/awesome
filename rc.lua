@@ -151,8 +151,20 @@ local mboxc = {
    mbox = {"/home/merlin/Mail/mbox"},
    tt = {"/home/merlin/Mail/tt"},
  }
-vicious.register(mboxcwidget, vicious.widgets.mboxc, " General: $3.", 600, mboxc.mbox)
-vicious.register(mboxcwidget1, vicious.widgets.mboxc, " TT: $3.", 600, mboxc.tt)
+
+function file_exists(name)
+   local f=io.open(name,"r")
+   if f~=nil then io.close(f) return "1" else return "0" end
+end
+
+
+if file_exists("/home/merlin/Mail/tt")=="1" then 
+   vicious.register(mboxcwidget1, vicious.widgets.mboxc, " TT: $3.", 600, mboxc.tt)
+end
+
+if file_exists("/home/merlin/Mail/tt")=="1" then 
+   vicious.register(mboxcwidget, vicious.widgets.mboxc, " General: $3.", 600, mboxc.mbox)
+end
 
 
 vicious.register(gmailwidget, vicious.widgets.gmail, " Gmail: ${count} ", 600, 10)
