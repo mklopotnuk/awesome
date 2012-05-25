@@ -108,6 +108,9 @@ orgwidget = widget({ type = "textbox" })
 
 batwidget = widget({ type = "textbox" })
 
+mboxcwidget = widget({ type = "textbox" })
+mboxcwidget1 = widget({ type = "textbox" })
+
 -- register widget
 
 vicious.register(cpuwidget, vicious.widgets.cpu, " CPU: $1%")
@@ -131,6 +134,14 @@ vicious.register(batwidget, vicious.widgets.bat, function(widget,args)
                                                                       return ' BAT: <span color="green"> charged </span>'
                                                                    end
                                                                 end, 20, "BAT0")
+
+-- mbox widgets
+local mboxc = {
+   mbox = {"/home/merlin/Mail/mbox"},
+   tt = {"/home/merlin/Mail/tt"},
+ }
+vicious.register(mboxcwidget, vicious.widgets.mboxc, " General: $3.", 600, mboxc.mbox)
+vicious.register(mboxcwidget1, vicious.widgets.mboxc, " TT: $3.", 600, mboxc.tt)
 
 
 -- Create a wibox for each screen and add it
@@ -210,6 +221,8 @@ for s = 1, screen.count() do
         mylayoutbox[s],
         mytextclock,
         s == 1 and mysystray or nil,
+        mboxwidget,
+        mboxwidget1,
         cpuwidget,
         batwidget,
         orgwidget,
