@@ -255,9 +255,16 @@ for s = 1, screen.count() do
         batwidget,
         wifiwidget,
         orgwidget,
-        mytasklist[s],
         layout = awful.widget.layout.horizontal.rightleft
     }
+
+    mywibox[s] = awful.wibox({ position = "bottom", screen = s })
+    mywibox[s].widgets = {
+           mytasklist[s],
+           layout = awful.widget.layout.horizontal.rightleft
+    }
+
+
 end
 -- }}}
 
