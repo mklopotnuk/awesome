@@ -8,6 +8,13 @@ require("beautiful")
 require("naughty")
 require("vicious")
 
+awful.util.spawn_with_shell("dropboxd")
+awful.util.spawn_with_shell("dropbox start")
+awful.util.spawn_with_shell("xxkb")
+awful.util.spawn_with_shell("run_once workrave")
+awful.util.spawn_with_shell("kbdd")
+awful.util.spawn_with_shell("setxkbmap -layout 'us,ru' -option 'grp:caps_toggle,grp_led:caps'")
+
 -- {{{ Error handling
 -- Check if awesome encountered an error during startup and fell back to
 -- another config (This code will only ever execute for the fallback config)
