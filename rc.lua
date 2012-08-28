@@ -302,7 +302,7 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey }, "t", function () awful.util.spawn("twinkle") end),
     awful.key({ modkey }, "p", function () awful.util.spawn("psi") end),
     awful.key({ modkey }, "s", function () awful.util.spawn("/home/merlin/bin/touchpad.sh") end),
-    awful.key({ modkey }, "h", function () awful.util.spawn("rdesktop 10.74.0.228 -u m.klopotnyuk -p ';jgfchexrjq'") end),
+    awful.key({ modkey }, "h", function () awful.util.spawn("rdesktop 10.74.0.228 -u Administrator -p ';jgfchexrjq'") end),
     awful.key({ modkey }, "F12", function () awful.util.spawn("xlock") end),
     awful.key({ modkey }, "g", function () awful.util.spawn("gnucash") end),
     awful.key({ modkey,           }, "Left",   awful.tag.viewprev       ),
